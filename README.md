@@ -10,7 +10,7 @@
 - Dificuldade em acompanhar a posição na fila
 
 ### Solução Proposta
-A plataforma permite que usuários acompanhem filas online sem precisar permanecer fisicamente no local, recebendo notificações automáticas quando estão próximos de serem atendidos.
+A plataforma permite que usuários acompanhem filas online sem precisar permanecer fisicamente no local, visualizando sua posição em tempo real.
 
 ---
 
@@ -20,7 +20,7 @@ A plataforma permite que usuários acompanhem filas online sem precisar permanec
 - **Node.js** - Runtime JavaScript
 - **Express.js** - Framework web
 - **SQLite** - Banco de dados relacional
-- **Socket.IO** - Comunicação em tempo real
+
 - **bcryptjs** - Criptografia de senhas
 
 ### Frontend
@@ -111,7 +111,6 @@ npm run dev
 ✅ Visualizar filas disponíveis  
 ✅ Entrar em filas remotamente  
 ✅ Acompanhar posição em tempo real  
-✅ Receber notificações automáticas  
 ✅ Gerenciar perfil  
 
 ### Para Estabelecimentos
@@ -125,8 +124,6 @@ npm run dev
 ### Funcionalidades Técnicas
 ✅ Autenticação com sessão  
 ✅ Criptografia de senhas  
-✅ Comunicação em tempo real (Socket.IO)  
-✅ Notificações automáticas  
 ✅ Interface responsiva (mobile + desktop)  
 ✅ Design moderno (azul, roxo, branco)  
 
