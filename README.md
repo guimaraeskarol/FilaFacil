@@ -218,38 +218,4 @@ rm filafacil.db
 npm start
 ```
 
----
-
-## 📈 Próximas Melhorias
-
-- [ ] Integração com SMS para notificações
-- [ ] Relatórios avançados em PDF
-- [ ] App mobile nativo
-- [ ] Integração com Google Maps
-- [ ] Suporte a múltiplos idiomas
-- [ ] Sistema de avaliações
-- [ ] Integração com WhatsApp
-
----
-
-## 📞 Suporte
-
-Para dúvidas ou problemas:
-1. Verifique a seção Troubleshooting
-2. Consulte os logs do console
-3. Verifique se todas as dependências estão instaladas
-
----
-
-## 📄 Licença
-
-Este projeto é fornecido como está para fins educacionais e comerciais.
-
----
-
 ## 👨‍💻 Desenvolvido com ❤️
-
-**FilaFácil** - Transformando a experiência de atendimento em saúde
-
-**Versão**: 1.0.0  
-**Última atualização**: Maio 2026
