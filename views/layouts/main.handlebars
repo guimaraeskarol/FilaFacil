@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FilaFácil - Sistema de Gerenciamento de Filas Digitais para Saúde">
+    <meta name="theme-color" content="#0066cc">
+    <title>{{title}} - FilaFácil</title>
+    
+    <!-- Stylesheet Principal -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%230066cc'>📋</text></svg>">
+</head>
+<body>
+    <!-- Navbar Principal -->
+    <nav class="navbar" role="navigation" aria-label="Navegação principal">
+        <div class="container">
+            <!-- Logo e Marca -->
+            <div class="navbar-brand">
+                <a href="/" class="logo" title="Voltar para home">
+                    <i class="fas fa-queue"></i>
+                    <span>FilaFácil</span>
+                </a>
+            </div>
+
+            <!-- Menu de Navegação -->
+            <ul class="navbar-menu">
+                <li><a href="/" title="Página inicial">Home</a></li>
+                <li><a href="/about" title="Sobre o FilaFácil">Sobre</a></li>
+                <li><a href="/contact" title="Entre em contato">Contato</a></li>
+                
+                {{#if isAuthenticated}}
+                    <!-- Menu Autenticado -->
+                    <li><a href="/dashboard" title="Seu dashboard">Dashboard</a></li>
+                    <li><a href="/profile" title="Seu perfil">
+                        <i class="fas fa-user-circle"></i> {{user.name}}
+                    </a></li>
+                    <li><a href="/logout" class="btn-logout" title="Sair da conta">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </a></li>
+                {{else}}
+                    <!-- Menu Não Autenticado -->
+                    <li><a href="/login" class="btn-login" title="Fazer login">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a></li>
+                    <li><a href="/register" class="btn-register" title="Criar nova conta">
+                        <i class="fas fa-user-plus"></i> Registrar
+                    </a></li>
+                {{/if}}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content" role="main">
+        {{{body}}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p>
+                &copy; 2026 <strong>FilaFácil</strong>. Todos os direitos reservados.
+            </p>
+            <p>
+                Desenvolvido com <i class="fas fa-heart"></i> para melhorar sua experiência
+            </p>
+            <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 1rem;">
+                <i class="fas fa-shield-alt"></i> Sistema seguro e confiável para gerenciamento de filas digitais
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts Externos -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
+    <!-- Script Principal -->
+    <script src="/main.js"></script>
+</body>
+</html>

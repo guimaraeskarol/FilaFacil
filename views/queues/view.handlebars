@@ -1,0 +1,186 @@
+<div class="container mt-4">
+    <div class="row">
+        <!-- Coluna Principal: Informações da Fila -->
+        <div class="col-md-8">
+            <!-- Card Principal: Informações da Fila -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <!-- Cabeçalho com Título e Badge -->
+                    <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 1.5rem;">
+                        <h1 style="margin: 0;">
+                            <i class="fas fa-layer-group"></i> {{queue.name}}
+                        </h1>
+                        <span class="badge bg-primary">
+                            <i class="fas fa-hospital"></i> {{queue.establishmentName}}
+                        </span>
+                    </div>
+
+                    <!-- Descrição da Fila -->
+                    <p class="lead" style="margin-bottom: 2rem;">
+                        {{queue.description}}
+                    </p>
+
+                    <!-- Métricas Principais -->
+                    <div class="row mt-4 text-center">
+                        <div class="col-md-{{#if showUserPosition}}4{{else}}6{{/if}}">
+                            <div class="p-3 border rounded bg-light" style="border-radius: 12px; background: linear-gradient(135deg, rgba(0, 102, 204, 0.08), rgba(124, 58, 237, 0.08)); border: 1px solid rgba(0, 102, 204, 0.15);">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: #0066cc; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h3 id="queue-count" style="margin: 0.5rem 0; color: #0066cc;">{{queueUsers.length}}</h3>
+                                <p class="mb-0 text-muted" style="font-weight: 500;">Pessoas na Fila</p>
+                            </div>
+                        </div>
+                        <div class="col-md-{{#if showUserPosition}}4{{else}}6{{/if}}">
+                            <div class="p-3 border rounded bg-light" style="border-radius: 12px; background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(0, 102, 204, 0.08)); border: 1px solid rgba(124, 58, 237, 0.15);">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: #7c3aed; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                                <h3 id="wait-time" style="margin: 0.5rem 0; color: #7c3aed;">{{totalWaitTime}} min</h3>
+                                <p class="mb-0 text-muted" style="font-weight: 500;">Espera Estimada</p>
+                            </div>
+                        </div>
+                        {{#if showUserPosition}}
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded bg-light" style="border-radius: 12px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(0, 102, 204, 0.08)); border: 1px solid rgba(16, 185, 129, 0.15);">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: #10b981; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <h3 id="user-pos" style="margin: 0.5rem 0; color: #10b981;">
+                                    {{#if userPosition}}{{userPosition}}º{{else}}-{{/if}}
+                                </h3>
+                                <p class="mb-0 text-muted" style="font-weight: 500;">Sua Posição</p>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="mt-4 d-grid gap-2 d-md-block">
+                        {{#if showQueueActions}}
+                            {{#if userPosition}}
+                                <button onclick="leaveQueue({{queue.id}})" class="btn btn-danger btn-lg" style="width: 100%;">
+                                    <i class="fas fa-sign-out-alt"></i> Sair da Fila
+                                </button>
+                            {{else}}
+                                <button onclick="joinQueue({{queue.id}})" class="btn btn-success btn-lg" style="width: 100%;">
+                                    <i class="fas fa-check-circle"></i> Entrar na Fila
+                                </button>
+                            {{/if}}
+                        {{else}}
+                            {{#unless isAuthenticated}}
+                                <a href="/login" class="btn btn-primary btn-lg" style="width: 100%; text-align: center;">
+                                    <i class="fas fa-sign-in-alt"></i> Faça login para entrar na fila
+                                </a>
+                            {{/unless}}
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: Lista de Próximos -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list-ul"></i> Próximos na Fila
+                    </h5>
+                </div>
+                <ul class="list-group list-group-flush" id="queue-list">
+                    {{#if queueUsers}}
+                        {{#each queueUsers}}
+                            <li class="list-group-item d-flex justify-content-between align-items-center" style="padding: 1.2rem; border-bottom: 1px solid #e0e0e0;">
+                                <div>
+                                    <strong style="color: #0066cc; font-size: 1.1rem;">{{this.position}}º</strong>
+                                    <span style="margin-left: 0.75rem; color: #1a1a1a; font-weight: 500;">{{this.name}}</span>
+                                    {{#if (eq ../user.id this.userId)}}
+                                        <span class="badge bg-info ms-2" style="margin-left: 0.75rem;">
+                                            <i class="fas fa-user-check"></i> Você
+                                        </span>
+                                    {{/if}}
+                                </div>
+                                <small class="text-muted" style="font-weight: 500;">
+                                    <i class="fas fa-clock"></i> {{this.joinedAt}}
+                                </small>
+                            </li>
+                        {{/each}}
+                    {{else}}
+                        <li class="list-group-item text-center py-4 text-muted">
+                            <i class="fas fa-inbox" style="font-size: 1.5rem; opacity: 0.3; display: block; margin-bottom: 0.5rem;"></i>
+                            Ninguém na fila no momento.
+                        </li>
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Coluna Lateral: Painel Admin e Informações -->
+        <div class="col-md-4">
+            <!-- Painel do Administrador (se for dono) -->
+            {{#if (eq user.id queue.userId)}}
+                <div class="card shadow-sm border-primary mb-4" style="border-left: 5px solid #0066cc;">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-shield-alt"></i> Painel do Administrador
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p style="color: #666; font-weight: 500; margin-bottom: 1.5rem;">
+                            <i class="fas fa-info-circle"></i> Gerencie o atendimento desta fila
+                        </p>
+                        <div class="d-grid gap-2">
+                            <button onclick="callNextUser({{queue.id}})" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-arrow-down"></i> Chamar Próximo
+                            </button>
+                        </div>
+                        
+                        <!-- Seção de Atendimento Atual -->
+                        <div id="current-attendance" class="mt-4 d-none">
+                            <h6 style="color: #0066cc; font-weight: 700; margin-bottom: 1rem;">
+                                <i class="fas fa-user-check"></i> Atendimento Atual
+                            </h6>
+                            <div class="alert alert-info" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-left: 5px solid #3b82f6; margin-bottom: 1rem;">
+                                <strong id="current-user-name" style="color: #1e40af;"></strong>
+                                <button onclick="finishAttendance({{queue.id}})" class="btn btn-sm btn-success mt-2 w-100">
+                                    <i class="fas fa-check-circle"></i> Finalizar Atendimento
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+
+            <!-- Card: Informações da Fila -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 style="margin: 0; color: #0066cc; font-weight: 700;">
+                        <i class="fas fa-info-circle"></i> Informações
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0;">
+                            <strong style="color: #0066cc;">
+                                <i class="fas fa-box"></i> Capacidade:
+                            </strong>
+                            <span style="float: right; color: #666; font-weight: 500;">{{queue.maxCapacity}}</span>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0;">
+                            <strong style="color: #0066cc;">
+                                <i class="fas fa-stopwatch"></i> Tempo Médio:
+                            </strong>
+                            <span style="float: right; color: #666; font-weight: 500;">{{queue.averageServiceTime}} min</span>
+                        </li>
+                        <li style="padding: 0.75rem 0;">
+                            <strong style="color: #0066cc;">
+                                <i class="fas fa-signal"></i> Status:
+                            </strong>
+                            <span class="badge bg-success" style="float: right;">
+                                {{queue.status}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

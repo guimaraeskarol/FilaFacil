@@ -1,0 +1,119 @@
+<div class="container mt-4">
+    {{#if (eq user.role 'admin')}}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1>Meus Estabelecimentos</h1>
+                <p class="text-muted">Gerencie suas unidades de atendimento e crie novas filas.</p>
+            </div>
+            <a href="/establishments/create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Novo Estabelecimento
+            </a>
+        </div>
+
+        <div class="row">
+            {{#if establishments}}
+                {{#each establishments}}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title" style="color: var(--primary-blue); font-weight: 700;">{{this.name}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{this.type}}</h6>
+                                    <p class="card-text">
+                                        <i class="fas fa-map-marker-alt" style="color: var(--primary-purple); margin-right: 0.5rem;"></i> {{this.city}}, {{this.state}}<br>
+                                        <i class="fas fa-phone" style="color: var(--primary-purple); margin-right: 0.5rem;"></i> {{this.phone}}
+                                    </p>
+                                </div>
+                                <div class="establishment-actions mt-4">
+                                    <a href="/queues/establishment/{{this.id}}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-layer-group"></i> Ver Filas
+                                    </a>
+                                    <a href="/queues/create/{{this.id}}" class="btn btn-success btn-sm">
+                                        <i class="fas fa-plus"></i> Nova Fila
+                                    </a>
+                                    <a href="/establishments/edit/{{this.id}}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a href="/establishments/delete/{{this.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> Você ainda não possui estabelecimentos cadastrados. 
+                        <a href="/establishments/create" style="margin-left: 0.5rem; font-weight: 700;">Clique aqui para criar o primeiro.</a>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    {{else}}
+        <!-- TELA EXCLUSIVA DO CLIENTE -->
+        <div class="mb-4">
+            <h1 style="color: var(--primary-blue); font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fas fa-list-ul" style="color: var(--primary-purple);"></i> Minhas Filas
+            </h1>
+            <p class="text-muted">Selecione um estabelecimento para visualizar e entrar em uma fila de atendimento.</p>
+        </div>
+
+        <div class="row">
+            {{#if establishments}}
+                {{#each establishments}}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm" style="border-radius: 16px; border: 1px solid rgba(0, 102, 204, 0.1); background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%); transition: all 0.3s ease;">
+                            <div class="card-body d-flex flex-column justify-content-between" style="padding: 2rem;">
+                                <div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div style="background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%); width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; color: var(--primary-blue);">
+                                            <i class="fas fa-hospital" style="font-size: 1.25rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h4 style="margin: 0; font-weight: 800; color: var(--primary-blue); font-size: 1.2rem;">{{this.name}}</h4>
+                                            <span class="badge bg-light" style="font-size: 0.75rem; color: var(--gray-text); border: 1px solid var(--border-color); margin-top: 0.25rem;">{{this.type}}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="margin: 1.5rem 0; font-size: 0.95rem; color: var(--gray-text);">
+                                        <p style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                            <i class="fas fa-map-marker-alt" style="color: var(--primary-purple); width: 20px;"></i> 
+                                            <span>{{this.address}}, {{this.city}} - {{this.state}}</span>
+                                        </p>
+                                        {{#if this.phone}}
+                                            <p style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                                <i class="fas fa-phone" style="color: var(--primary-purple); width: 20px;"></i>
+                                                <span>{{this.phone}}</span>
+                                            </p>
+                                        {{/if}}
+                                        {{#if this.openingHours}}
+                                            <p style="margin-bottom: 0px; display: flex; align-items: center; gap: 0.5rem;">
+                                                <i class="fas fa-clock" style="color: var(--primary-purple); width: 20px;"></i>
+                                                <span>Horário: {{this.openingHours}} às {{this.closingHours}}</span>
+                                            </p>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-top: 1rem;">
+                                    <button type="button" data-establishment-id="{{this.id}}" class="btn btn-primary btn-block text-center enter-queue-btn" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; border-radius: 12px;">
+                                        <i class="fas fa-sign-in-alt"></i> Entrar na Fila
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="col-12">
+                    <div class="alert alert-info" style="border-radius: 12px; padding: 1.5rem; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); color: #1e40af; border-left: 5px solid var(--info);">
+                        <i class="fas fa-info-circle" style="font-size: 1.2rem; margin-right: 0.5rem;"></i> 
+                        Não há estabelecimentos disponíveis cadastrados no sistema no momento.
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    {{/if}}
+</div>

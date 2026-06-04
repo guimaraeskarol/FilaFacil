@@ -1,0 +1,77 @@
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Bem-vindo ao <span class="brand-color">FilaFácil</span></h1>
+            <p class="hero-subtitle">Transforme a experiência de atendimento em sua unidade de saúde</p>
+            <p class="hero-description">
+                Gerenciamento inteligente de filas digitais para farmácias, clínicas e postos de saúde.
+                Reduza o tempo de espera, melhore a organização e aumente a satisfação dos pacientes.
+            </p>
+            <div class="hero-buttons">
+                {{#if isAuthenticated}}
+                    <a href="/dashboard" class="btn btn-primary">Ir para Dashboard</a>
+                {{else}}
+                    <!-- Botões removidos conforme solicitado -->
+                {{/if}}
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-illustration">
+                <i class="fas fa-tasks"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefícios -->
+<section class="benefits">
+    <div class="container">
+        <h2>Por que escolher FilaFácil?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Reduza o Tempo de Espera</h3>
+                <p>Usuários acompanham sua posição em tempo real e recebem notificações quando estão próximos.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Análises Detalhadas</h3>
+                <p>Dashboard com gráficos e estatísticas para otimizar o fluxo de atendimento.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>100% Responsivo</h3>
+                <p>Funciona perfeitamente em celulares, tablets e computadores.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Notificações Inteligentes</h3>
+                <p>Alertas automáticos quando o usuário está próximo de ser atendido.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>Seguro e Confiável</h3>
+                <p>Dados criptografados e autenticação segura para proteger informações.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Suporte 24/7</h3>
+                <p>Equipe sempre disponível para ajudar com dúvidas e problemas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+

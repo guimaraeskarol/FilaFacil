@@ -1,0 +1,143 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <!-- Cabeçalho da Autenticação -->
+        <div class="auth-header">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1>Criar Conta</h1>
+            <p>Junte-se ao FilaFácil</p>
+        </div>
+
+        <!-- Mensagens de Erro -->
+        {{#if error}}
+            <div class="alert alert-error" role="alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{error}}</span>
+            </div>
+        {{/if}}
+
+        <!-- Mensagens de Sucesso -->
+        {{#if success}}
+            <div class="alert alert-success" role="alert">
+                <i class="fas fa-check-circle"></i>
+                <span>{{success}}</span>
+            </div>
+        {{/if}}
+
+        <!-- Formulário de Registro -->
+        <form method="POST" action="/register" class="auth-form" novalidate>
+            <!-- Campo Nome -->
+            <div class="form-group">
+                <label for="name">
+                    <i class="fas fa-user"></i> Nome Completo
+                </label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    required 
+                    placeholder="Seu nome completo"
+                    autocomplete="name"
+                    aria-label="Nome completo"
+                >
+            </div>
+
+            <!-- Campo Email -->
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Email
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    placeholder="seu@email.com"
+                    autocomplete="email"
+                    aria-label="Email"
+                >
+            </div>
+
+            <!-- Campo Senha -->
+            <div class="form-group">
+                <label for="password">
+                    <i class="fas fa-key"></i> Senha
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required 
+                    placeholder="Crie uma senha forte"
+                    autocomplete="new-password"
+                    aria-label="Senha"
+                    minlength="6"
+                >
+                <small style="color: #999; margin-top: 0.25rem; display: block;">
+                    Mínimo 6 caracteres
+                </small>
+            </div>
+
+            <!-- Campo Confirmação de Senha -->
+            <div class="form-group">
+                <label for="confirmPassword">
+                    <i class="fas fa-check-circle"></i> Confirmar Senha
+                </label>
+                <input 
+                    type="password" 
+                    id="confirmPassword" 
+                    name="confirmPassword" 
+                    required 
+                    placeholder="Confirme sua senha"
+                    autocomplete="new-password"
+                    aria-label="Confirmar senha"
+                    minlength="6"
+                >
+            </div>
+
+            <!-- Seleção de Perfil (Role) -->
+            <div class="form-group">
+                <label style="margin-bottom: 0.75rem; display: block; font-weight: 600; color: #444;">
+                    <i class="fas fa-user-tag"></i> Tipo de Conta
+                </label>
+                <div style="display: flex; gap: 1rem; flex-direction: column;">
+                    <label style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.2s ease;">
+                        <input type="radio" name="role" value="user" checked style="margin-top: 0.25rem;">
+                        <div>
+                            <span style="font-weight: 600; color: #333; display: block;">Cliente (Entrar em Filas)</span>
+                            <small style="color: #666; font-size: 0.8rem; display: block;">Quero buscar estabelecimentos e pegar senhas de atendimento.</small>
+                        </div>
+                    </label>
+                    <label style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.2s ease;">
+                        <input type="radio" name="role" value="admin" style="margin-top: 0.25rem;">
+                        <div>
+                            <span style="font-weight: 600; color: #333; display: block;">Estabelecimento (Gerenciar)</span>
+                            <small style="color: #666; font-size: 0.8rem; display: block;">Quero criar e gerenciar minhas próprias filas e atendimentos.</small>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem;">
+                <i class="fas fa-arrow-right"></i> Criar Conta
+            </button>
+        </form>
+
+        <!-- Rodapé com Link para Login -->
+        <div class="auth-footer">
+            <p>
+                Já tem conta? 
+                <a href="/login">
+                    <i class="fas fa-sign-in-alt"></i> Faça login aqui
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Dica de Segurança -->
+<div style="text-align: center; margin-top: 2rem; color: #666; font-size: 0.85rem;">
+    <i class="fas fa-shield-alt"></i> Sua segurança é nossa prioridade. Dados criptografados.
+</div>
