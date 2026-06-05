@@ -20,7 +20,6 @@ A plataforma permite que usuários acompanhem filas online sem precisar permanec
 - **Node.js** - Runtime JavaScript
 - **Express.js** - Framework web
 - **SQLite** - Banco de dados relacional
-
 - **bcryptjs** - Criptografia de senhas
 
 ### Frontend
@@ -28,7 +27,6 @@ A plataforma permite que usuários acompanhem filas online sem precisar permanec
 - **HTML5** - Estrutura
 - **CSS3** - Estilo (Design responsivo)
 - **JavaScript Vanilla** - Interatividade
-- **Chart.js** - Gráficos (opcional)
 
 ### Padrão Arquitetural
 - **MVC** (Model-View-Controller)
